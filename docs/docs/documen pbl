@@ -11,3 +11,29 @@
 - Pengelolaan data peminjam.
 
 **Repository:** Github 
+
+
+## Anggota Kelompok
+- Ilvan Asdiansyah
+- Ayu Syafitri
+
+## Teknologi yang Digunakan
+- HTML untuk struktur halaman.
+- CSS untuk desain tampilan.
+- JavaScript untuk interaksi pengguna.
+- GitHub untuk menyimpan dan mengelola kode proyek.
+
+## Pengguna Sistem
+- Admin: mengelola data barang dan data peminjaman.
+- Peminjam: melihat barang dan mengajukan peminjaman.
+
+## Alur Peminjaman
+1. Pengguna membuka aplikasi.
+2. Pengguna melihat daftar barang yang tersedia.
+3. Pengguna memilih barang yang ingin dipinjam.
+4. Admin memeriksa dan mencatat peminjaman.
+5. Pengguna mengembalikan barang.
+6. Admin memperbarui status barang.
+
+## Repository
+Proyek ini disimpan di GitHub dengan nama Aplikasi-peminjaman-barang-dan-peralatan-kelas.
