@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Peminjaman Barang dan Peralatan Kelas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        <h2>PinjamKelas</h2>
+        <p>Peralatan Kelas</p>
+    </div>
+
+    <div class="menu">
+
+        <button onclick="showPage('dashboard')">
+            🏠 Dashboard
+        </button>
+
+        <button onclick="showPage('barang')">
+            📦 Daftar Barang
+        </button>
+
+        <button onclick="showPage('peminjaman')">
+            📝 Peminjaman
+        </button>
+
+        <button onclick="showPage('status')">
+            🔄 Status Peminjaman
+        </button>
+
+        <button onclick="showPage('riwayat')">
+            📋 Riwayat
+        </button>
+
+        <hr>
+
+        <p class="menu-title">ADMIN</p>
+
+        <button onclick="showPage('admin')">
+            📊 Dashboard Admin
+        </button>
+
+        <button onclick="showPage('kelola-barang')">
+            🛠 Kelola Barang
+        </button>
+
+        <button onclick="showPage('kelola-peminjaman')">
+            📑 Kelola Peminjaman
+        </button>
+
+        <button onclick="showPage('pengembalian')">
+            ↩ Pengembalian
+        </button>
+
+        <button onclick="showPage('laporan')">
+            📈 Laporan
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     MAIN CONTENT
+================================================== -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div>
+            <h3 id="pageTitle">
+                Dashboard
+            </h3>
+
+            <p>
+                Aplikasi Peminjaman Barang dan Peralatan Kelas
+            </p>
+        </div>
+
+        <div class="user">
+            👤 Mahasiswa
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         1. LOGIN
+    ================================================== -->
+
+    <section id="login" class="page">
+
+        <div class="login-box">
+
+            <div class="login-logo">
+                📦
+            </div>
+
+            <h1>PinjamKelas</h1>
+
+            <p>
+                Aplikasi Peminjaman Barang dan Peralatan Kelas
+            </p>
+
+            <form onsubmit="login(event)">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Masukkan username"
+                    required
+                >
+
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Masukkan password"
+                    required
+                >
+
+
+                <button type="submit" class="primary">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         2. DASHBOARD / BERANDA
+    ================================================== -->
+
+    <section id="dashboard" class="page active">
+
+        <div class="welcome">
+
+            <h1>
+                Selamat Datang 👋
+            </h1>
+
+            <p>
+                Kelola peminjaman barang dan peralatan kelas
+                dengan mudah.
+            </p>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <span>📦</span>
+
+                <div>
+                    <h2>24</h2>
+                    <p>Total Barang</p>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <span>✅</span>
+
+                <div>
+                    <h2>18</h2>
+                    <p>Barang Tersedia</p>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <span>📤</span>
+
+                <div>
+                    <h2>6</h2>
+                    <p>Sedang Dipinjam</p>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <span>📋</span>
+
+                <div>
+                    <h2>12</h2>
+                    <p>Total Peminjaman</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="content-card">
+
+            <h2>
+                Menu Cepat
+            </h2>
+
+            <div class="quick-menu">
+
+                <button onclick="showPage('barang')">
+                    📦
+                    <span>Daftar Barang</span>
+                </button>
+
+                <button onclick="showPage('peminjaman')">
+                    📝
+                    <span>Ajukan Peminjaman</span>
+                </button>
+
+                <button onclick="showPage('status')">
+                    🔄
+                    <span>Cek Status</span>
+                </button>
+
+                <button onclick="showPage('riwayat')">
+                    📋
+                    <span>Riwayat</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         3. DAFTAR BARANG
+    ================================================== -->
+
+    <section id="barang" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>
+                    Daftar Barang
+                </h1>
+
+                <p>
+                    Pilih barang yang ingin dipinjam.
+                </p>
+            </div>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="🔍 Cari barang..."
+                onkeyup="searchBarang()"
+            >
+
+        </div>
+
+
+        <div class="barang-grid" id="barangList">
+
+
+            <!-- PROYEKTOR -->
+
+            <div class="barang-card">
+
+                <div class="gambar">
+                    📽️
+                </div>
+
+                <h3>
+                    Proyektor
+                </h3>
+
+                <p>
+                    Proyektor untuk kegiatan presentasi kelas.
+                </p>
+
+                <span class="available">
+                    ● Tersedia
+                </span>
+
+                <button onclick="detailBarang('Proyektor')">
+                    Lihat Detail
+                </button>
+
+            </div>
+
+
+            <!-- SPEAKER -->
+
+            <div class="barang-card">
+
+                <div class="gambar">
+                    🔊
+                </div>
+
+                <h3>
+                    Speaker
+                </h3>
+
+                <p>
+                    Speaker untuk kegiatan pembelajaran.
+                </p>
+
+                <span class="available">
+                    ● Tersedia
+                </span>
+
+                <button onclick="detailBarang('Speaker')">
+                    Lihat Detail
+                </button>
+
+            </div>
+
+
+            <!-- HDMI -->
+
+            <div class="barang-card">
+
+                <div class="gambar">
+                    🔌
+                </div>
+
+                <h3>
+                    Kabel HDMI
+                </h3>
+
+                <p>
+                    Kabel penghubung laptop dengan proyektor.
+                </p>
+
+                <span class="available">
+                    ● Tersedia
+                </span>
+
+                <button onclick="detailBarang('Kabel HDMI')">
+                    Lihat Detail
+                </button>
+
+            </div>
+
+
+            <!-- MICROPHONE -->
+
+            <div class="barang-card">
+
+                <div class="gambar">
+                    🎤
+                </div>
+
+                <h3>
+                    Microphone
+                </h3>
+
+                <p>
+                    Microphone untuk presentasi dan kegiatan kelas.
+                </p>
+
+                <span class="available">
+                    ● Tersedia
+                </span>
+
+                <button onclick="detailBarang('Microphone')">
+                    Lihat Detail
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         4. DETAIL BARANG
+    ================================================== -->
+
+    <section id="detail" class="page">
+
+        <div class="detail-card">
+
+            <div class="detail-image">
+                📦
+            </div>
+
+            <div class="detail-info">
+
+                <h1 id="detailNama">
+                    Proyektor
+                </h1>
+
+                <p id="detailDeskripsi">
+                    Proyektor untuk kegiatan presentasi kelas.
+                </p>
+
+                <div class="detail-data">
+
+                    <p>
+                        <strong>Kategori:</strong>
+                        Peralatan Presentasi
+                    </p>
+
+                    <p>
+                        <strong>Jumlah:</strong>
+                        3 unit
+                    </p>
+
+                    <p>
+                        <strong>Kondisi:</strong>
+                        Baik
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="available">
+                            Tersedia
+                        </span>
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary"
+                    onclick="showPage('peminjaman')"
+                >
+                    Ajukan Peminjaman
+                </button>
+
+
+                <button
+                    class="secondary"
+                    onclick="showPage('barang')"
+                >
+                    Kembali
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         5. FORM PEMINJAMAN
+    ================================================== -->
+
+    <section id="peminjaman" class="page">
+
+        <div class="form-card">
+
+            <h1>
+                Form Peminjaman
+            </h1>
+
+            <p>
+                Isi data peminjaman barang dengan lengkap.
+            </p>
+
+
+            <form onsubmit="ajukanPeminjaman(event)">
+
+                <label>
+                    Nama Peminjam
+                </label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama"
+                    required
+                >
+
+
+                <label>
+                    NIM
+                </label>
+
+                <input
+                    type="text"
+                    id="nim"
+                    placeholder="Masukkan NIM"
+                    required
+                >
+
+
+                <label>
+                    Nama Barang
+                </label>
+
+                <select id="namaBarang" required>
+
+                    <option value="">
+                        -- Pilih Barang --
+                    </option>
+
+                    <option>
+                        Proyektor
+                    </option>
+
+                    <option>
+                        Speaker
+                    </option>
+
+                    <option>
+                        Kabel HDMI
+                    </option>
+
+                    <option>
+                        Microphone
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Jumlah
+                </label>
+
+                <input
+                    type="number"
+                    id="jumlah"
+                    min="1"
+                    placeholder="Jumlah barang"
+                    required
+                >
+
+
+                <label>
+                    Tanggal Peminjaman
+                </label>
+
+                <input
+                    type="date"
+                    id="tanggalPinjam"
+                    required
+                >
+
+
+                <label>
+                    Tanggal Pengembalian
+                </label>
+
+                <input
+                    type="date"
+                    id="tanggalKembali"
+                    required
+                >
+
+
+                <label>
+                    Keperluan
+                </label>
+
+                <textarea
+                    id="keperluan"
+                    placeholder="Masukkan keperluan peminjaman"
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="primary"
+                >
+                    Kirim Pengajuan
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         6. STATUS PEMINJAMAN
+    ================================================== -->
+
+    <section id="status" class="page">
+
+        <div class="content-card">
+
+            <h1>
+                Status Peminjaman
+            </h1>
+
+            <div class="status-item">
+
+                <div>
+                    <h3>
+                        Proyektor
+                    </h3>
+
+                    <p>
+                        05 November 2026 - 06 November 2026
+                    </p>
+                </div>
+
+                <span class="badge waiting">
+                    Menunggu
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <div>
+                    <h3>
+                        Speaker
+                    </h3>
+
+                    <p>
+                        01 November 2026 - 02 November 2026
+                    </p>
+
+                </div>
+
+                <span class="badge approved">
+                    Disetujui
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <div>
+                    <h3>
+                        Kabel HDMI
+                    </h3>
+
+                    <p>
+                        20 Oktober 2026 - 21 Oktober 2026
+                    </p>
+
+                </div>
+
+                <span class="badge rejected">
+                    Ditolak
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         7. RIWAYAT
+    ================================================== -->
+
+    <section id="riwayat" class="page">
+
+        <div class="content-card">
+
+            <h1>
+                Riwayat Peminjaman
+            </h1>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Barang</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Tanggal Kembali</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="riwayatTable">
+
+                    <tr>
+
+                        <td>1</td>
+
+                        <td>Proyektor</td>
+
+                        <td>01/11/2026</td>
+
+                        <td>02/11/2026</td>
+
+                        <td>
+                            <span class="badge approved">
+                                Selesai
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>2</td>
+
+                        <td>Speaker</td>
+
+                        <td>15/10/2026</td>
+
+                        <td>16/10/2026</td>
+
+                        <td>
+                            <span class="badge approved">
+                                Selesai
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         8. DASHBOARD ADMIN
+    ================================================== -->
+
+    <section id="admin" class="page">
+
+        <div class="welcome">
+
+            <h1>
+                Dashboard Admin
+            </h1>
+
+            <p>
+                Mengelola barang dan peminjaman kelas.
+            </p>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <span>📦</span>
+
+                <div>
+                    <h2>24</h2>
+                    <p>Total Barang</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>👥</span>
+
+                <div>
+                    <h2>35</h2>
+                    <p>Total Pengguna</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>⏳</span>
+
+                <div>
+                    <h2>5</h2>
+                    <p>Pengajuan Baru</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>↩</span>
+
+                <div>
+                    <h2>3</h2>
+                    <p>Pengembalian</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="content-card">
+
+            <h2>
+                Aktivitas Terbaru
+            </h2>
+
+            <p>
+                • Pengajuan proyektor dari Ayu
+            </p>
+
+            <p>
+                • Speaker telah dikembalikan
+            </p>
+
+            <p>
+                • Kabel HDMI sedang dipinjam
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         9. KELOLA DATA BARANG
+    ================================================== -->
+
+    <section id="kelola-barang" class="page">
+
+        <div class="content-card">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>
+                        Kelola Data Barang
+                    </h1>
+
+                    <p>
+                        Tambah, ubah, dan hapus data barang.
+                    </p>
+                </div>
+
+                <button
+                    class="primary"
+                    onclick="tambahBarang()"
+                >
+                    + Tambah Barang
+                </button>
+
+            </div>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Jumlah</th>
+                        <th>Kondisi</th>
+                        <th>Aksi</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>Proyektor</td>
+                        <td>Presentasi</td>
+                        <td>3</td>
+                        <td>Baik</td>
+
+                        <td>
+                            <button class="small">
+                                Edit
+                            </button>
+
+                            <button class="danger">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>2</td>
+                        <td>Speaker</td>
+                        <td>Audio</td>
+                        <td>5</td>
+                        <td>Baik</td>
+
+                        <td>
+                            <button class="small">
+                                Edit
+                            </button>
+
+                            <button class="danger">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>3</td>
+                        <td>Kabel HDMI</td>
+                        <td>Kabel</td>
+                        <td>8</td>
+                        <td>Baik</td>
+
+                        <td>
+                            <button class="small">
+                                Edit
+                            </button>
+
+                            <button class="danger">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         10. KELOLA PEMINJAMAN
+    ================================================== -->
+
+    <section id="kelola-peminjaman" class="page">
+
+        <div class="content-card">
+
+            <h1>
+                Kelola Peminjaman
+            </h1>
+
+            <p>
+                Admin memeriksa dan menentukan pengajuan peminjaman.
+            </p>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Peminjam
+                        </th>
+
+                        <th>
+                            Barang
+                        </th>
+
+                        <th>
+                            Tanggal
+                        </th>
+
+                        <th>
+                            Keperluan
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Ayu
+                        </td>
+
+                        <td>
+                            Proyektor
+                        </td>
+
+                        <td>
+                            05/11/2026
+                        </td>
+
+                        <td>
+                            Presentasi
+                        </td>
+
+                        <td>
+                            <span class="badge waiting">
+                                Menunggu
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="approve"
+                                onclick="setujui()"
+                            >
+                                Setujui
+                            </button>
+
+                            <button
+                                class="danger"
+                                onclick="tolak()"
+                            >
+                                Tolak
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         11. PENGEMBALIAN
+    ================================================== -->
+
+    <section id="pengembalian" class="page">
+
+        <div class="content-card">
+
+            <h1>
+                Pengembalian Barang
+            </h1>
+
+            <p>
+                Periksa barang yang telah dikembalikan.
+            </p>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Peminjam</th>
+                        <th>Barang</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Tanggal Kembali</th>
+                        <th>Kondisi</th>
+                        <th>Aksi</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Ayu
+                        </td>
+
+                        <td>
+                            Proyektor
+                        </td>
+
+                        <td>
+                            04/11/2026
+                        </td>
+
+                        <td>
+                            05/11/2026
+                        </td>
+
+                        <td>
+
+                            <select>
+                                <option>
+                                    Baik
+                                </option>
+
+                                <option>
+                                    Rusak Ringan
+                                </option>
+
+                                <option>
+                                    Rusak Berat
+                                </option>
+                            </select>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="approve"
+                                onclick="konfirmasiKembali()"
+                            >
+                                Konfirmasi
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         12. LAPORAN
+    ================================================== -->
+
+    <section id="laporan" class="page">
+
+        <div class="content-card">
+
+            <h1>
+                Laporan Peminjaman
+            </h1>
+
+            <p>
+                Rekap data peminjaman barang dan peralatan kelas.
+            </p>
+
+
+            <div class="report-grid">
+
+                <div class="report-card">
+
+                    <h3>
+                        Total Peminjaman
+                    </h3>
+
+                    <h1>
+                        42
+                    </h1>
+
+                    <p>
+                        Peminjaman
+                    </p>
+
+                </div>
+
+
+                <div class="report-card">
+
+                    <h3>
+                        Barang Terpopuler
+                    </h3>
+
+                    <h1>
+                        Proyektor
+                    </h1>
+
+                    <p>
+                        Paling sering dipinjam
+                    </p>
+
+                </div>
+
+
+                <div class="report-card">
+
+                    <h3>
+                        Pengembalian
+                    </h3>
+
+                    <h1>
+                        38
+                    </h1>
+
+                    <p>
+                        Barang dikembalikan
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart">
+
+                <h3>
+                    Grafik Peminjaman
+                </h3>
+
+                <div class="bars">
+
+                    <div>
+                        <span style="height: 80%;">
+                        </span>
+
+                        <p>
+                            Proyektor
+                        </p>
+                    </div>
+
+
+                    <div>
+                        <span style="height: 55%;">
+                        </span>
+
+                        <p>
+                            Speaker
+                        </p>
+                    </div>
+
+
+                    <div>
+                        <span style="height: 40%;">
+                        </span>
+
+                        <p>
+                            HDMI
+                        </p>
+                    </div>
+
+
+                    <div>
+                        <span style="height: 30%;">
+                        </span>
+
+                        <p>
+                            Mic
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
